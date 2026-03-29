@@ -1,0 +1,14 @@
+Package: HoopsImpact
+Title: Basketball Player Impact and Performance Analysis Tools
+Version: 0.0.0.9000
+Authors@R: 
+    person("Robbie", "Hunter", email = "your_email@example.com", role = c("aut", "cre"))
+Description: Tools for analyzing basketball player performance and team impact 
+    using efficiency metrics, role classification, and visualizations. Designed 
+    for students, analysts, and coaches to simplify advanced basketball analytics.
+Depends: R (>= 3.1.2)
+Imports: dplyr, ggplot2
+License: CC0
+LazyData: true
+URL: https://github.com/YOUR_USERNAME/HoopsImpact
+BugReports: https://github.com/YOUR_USERNAME/HoopsImpact/issues
