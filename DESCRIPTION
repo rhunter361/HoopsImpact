@@ -1,0 +1,36 @@
+Package: HoopsImpact
+Type: Package
+Title: Tools for Evaluating Basketball Player Performance and Team Impact
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Robbie",
+           family = "Hunter",
+           role = c("aut", "cre"),
+           email = "hunter123@usf.edu",
+           comment = c(ORCID = "0000-0000-0000-0000"))
+Description: Provides a set of accessible functions for sports analytics work
+    in basketball, including efficiency-based impact scoring, role
+    classification of players, head-to-head player comparison, and
+    visualization of player performance. The package is intended for
+    students, analysts, and coaches who want to evaluate player
+    contributions without building models from scratch. It bundles a
+    sample dataset of player season statistics so that all functions can
+    be demonstrated and tested out of the box.
+License: CC0
+Encoding: UTF-8
+LazyData: true
+Depends: 
+    R (>= 4.0.0)
+Imports: 
+    ggplot2 (>= 3.3.0),
+    methods,
+    rlang,
+    stats
+Suggests: 
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+URL: https://github.com/[your-username]/HoopsImpact
+BugReports: https://github.com/[your-username]/HoopsImpact/issues
+Config/roxygen2/version: 8.0.0

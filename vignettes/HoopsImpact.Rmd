@@ -1,0 +1,138 @@
+---
+title: "Introduction to HoopsImpact"
+author: "Robbie"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to HoopsImpact}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+
+HoopsImpact is an R package that brings together a small but practical
+set of functions for basketball analytics. The package was built for
+students, analysts, and coaches who want to evaluate player
+contributions without having to write modeling code from scratch. This
+vignette walks through the main features of the package using the
+bundled sample dataset.
+
+```{r setup}
+library(HoopsImpact)
+data(sample_players)
+head(sample_players)
+```
+
+# Calculating Impact
+
+The first piece of the package is the `impact_score()` function, which
+combines positive box-score contributions with a turnover penalty and
+scales the result by minutes played so that lower-minute players are
+not unfairly punished. The formula used is:
+
+$$
+\text{Impact} = (\text{PTS} + 1.2 \cdot \text{REB} + 1.5 \cdot \text{AST} + 2 \cdot \text{STL} + 2 \cdot \text{BLK} - \text{TO}) \cdot \frac{\text{MIN}}{36}
+$$
+
+```{r}
+impact_score(sample_players)
+```
+
+The `scale = TRUE` argument standardizes the scores so that they can be
+compared across datasets:
+
+```{r}
+impact_score(sample_players, scale = TRUE)
+```
+
+# Classifying Player Roles
+
+The `classify_role()` function assigns each player a role label based
+on a simple set of thresholds. The categories were chosen because they
+map cleanly to how coaches and analysts already describe players.
+
+```{r}
+classify_role(sample_players)
+```
+
+The thresholds are configurable, which means a user can tighten or
+loosen the definitions to fit a specific league or level of play.
+
+```{r}
+classify_role(sample_players, scorer_pts = 18, general_ast = 6)
+```
+
+# Comparing Two Players
+
+The `compare_players()` function builds a side-by-side comparison
+across the core box-score categories and flags the player with the
+edge in each one. Turnovers are handled correctly: the smaller value
+wins.
+
+```{r}
+compare_players(sample_players, "A. Carter", "B. Mitchell")
+```
+
+# Visualizing a Single Player
+
+The `plot_player()` function returns a ggplot2 bar chart of a single
+player's per-game contributions. The output is a regular ggplot
+object, so it can be customized with additional layers if needed.
+
+```{r, fig.width = 6, fig.height = 4}
+plot_player(sample_players, "A. Carter")
+```
+
+# S3 Player Profiles
+
+HoopsImpact uses both R class systems so that users can see how each
+one is built and used. The `player_summary()` function returns a
+`player_profile` S3 object with custom `print()` and `summary()`
+methods.
+
+```{r}
+prof <- player_summary(sample_players, "A. Carter")
+print(prof)
+```
+
+```{r}
+summary(prof)
+```
+
+# S4 Team Impact Objects
+
+For team-level work the package uses an S4 class called `TeamImpact`.
+S4 was chosen here because team objects benefit from formal slot
+typing and a validity check that prevents the player and impact
+vectors from drifting out of sync.
+
+```{r}
+team <- PlayerProfile(sample_players,
+                      team_name = "Sample U",
+                      season = "2025-26")
+team
+```
+
+The `summary()` method returns a ranked data frame so that the most
+impactful players appear at the top:
+
+```{r}
+summary(team)
+```
+
+# Conclusion
+
+HoopsImpact pulls together the three things a basketball analyst
+usually wants to do with a player dataset: score the players, label
+the players, and compare the players. The combination of S3 and S4
+classes makes it a useful teaching package as well as a practical one,
+and the bundled sample dataset means every function can be tested
+immediately after installation.
