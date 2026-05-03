@@ -5,15 +5,12 @@
 ## Overview
 
 HoopsImpact is an R package that provides accessible functions for sports
-analytics work in basketball. It is built for students, analysts, and
-coaches who want to evaluate player contributions without having to build
-models from scratch. The package combines data processing, role
+analytics work in basketball. For now it is best used with the sample data provided in the package to work well.
+Further updates will hopefully allow it to utilize other packages like HoopR to scrape real data and provide Impact Scores.
+The package combines data processing, role
 classification, head-to-head comparison, and visualization in a single
 toolkit, and ships with a sample dataset so every function can be tried
 right away.
-
-This package was developed as the final project for an R programming
-course at the University of South Florida.
 
 ## Installation
 
